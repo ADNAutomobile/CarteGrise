@@ -134,7 +134,7 @@ function calculer() {
   `;
 }
 
-function exportPDF() {
+function ancienexportPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
   const content = document.getElementById("resultat");
@@ -150,4 +150,49 @@ function exportPDF() {
     y += 7;
   });
   doc.save("simulateur_adn.pdf");
+}
+function exportPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const content = document.getElementById("resultat");
+  if (!content.innerText.trim()) {
+    alert("Veuillez d'abord effectuer un calcul.");
+    return;
+  }
+
+  // Chemin vers le logo
+  const logo = new Image();
+  logo.src = "assets/logo.png"; // ← chemin ajusté
+
+  logo.onload = () => {
+    doc.addImage(logo, "PNG", 10, 10, 40, 15); // x, y, largeur, hauteur
+
+    doc.setFontSize(18);
+    doc.text("Simulation Malus & Carte Grise", 60, 20);
+
+    doc.setFontSize(11);
+    doc.setTextColor(100);
+    doc.text("Date : " + new Date().toLocaleDateString(), 200, 30, { align: "right" });
+
+    doc.setDrawColor(200);
+    doc.line(10, 28, 200, 28);
+
+    // Contenu des résultats
+    let y = 40;
+    const lignes = content.innerText.split("\n");
+    doc.setFontSize(12);
+    doc.setTextColor(0);
+
+    lignes.forEach(line => {
+      if (y > 270) {
+        doc.addPage();
+        y = 20;
+      }
+      doc.text(line, 10, y);
+      y += 8;
+    });
+
+    doc.save("simulation_adn.pdf");
+  };
 }
