@@ -138,32 +138,43 @@ function exportPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
+  const content = document.getElementById("resultat");
+  if (!content || !content.innerText.trim()) {
+    alert("Veuillez d'abord effectuer un calcul.");
+    return;
+  }
+
+  // Logo ADN Automobile (dans dossier /assets)
   const logo = new Image();
   logo.src = "assets/logo.png";
 
   logo.onload = () => {
+    // Logo
     doc.addImage(logo, "PNG", 10, 10, 40, 15);
 
+    // Titre
     doc.setFontSize(16);
-    doc.text("Simulation Malus CO₂, Taxe au Poids & Carte Grise", 60, 20);
+    doc.text("Simulation Malus, Taxe Poids & Carte Grise", 60, 20);
 
+    // Date d'export
     doc.setFontSize(10);
-    doc.text("Date d'export : " + new Date().toLocaleDateString(), 200, 27, { align: "right" });
+    doc.setTextColor(100);
+    doc.text("Exporté le : " + new Date().toLocaleDateString(), 200, 28, { align: "right" });
 
+    // Ligne de séparation
+    doc.setDrawColor(180);
     doc.line(10, 30, 200, 30);
 
-    // Récupérer les données affichées dans les <p> du résultat
-    const resultats = document.querySelectorAll("#resultat p");
+    // Texte à partir de la ligne 40
     let y = 40;
+    const lignes = Array.from(content.querySelectorAll("p")).map(p => p.innerText.trim());
 
-    resultats.forEach(p => {
-      const text = p.innerText.replace(/\s+→\s+/g, " → ");
-      doc.setFontSize(12);
-      doc.setTextColor(30);
-      doc.text(text, 10, y);
+    doc.setFontSize(12);
+    doc.setTextColor(0);
+    lignes.forEach(line => {
+      doc.text(line, 10, y);
       y += 8;
-
-      if (y > 270) {
+      if (y > 280) {
         doc.addPage();
         y = 20;
       }
@@ -171,5 +182,10 @@ function exportPDF() {
 
     doc.save("simulation_adn.pdf");
   };
+
+  // Si jamais le logo est déjà chargé (cache), on déclenche directement
+  if (logo.complete) {
+    logo.onload();
+  }
 }
 
