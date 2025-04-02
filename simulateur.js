@@ -134,65 +134,42 @@ function calculer() {
   `;
 }
 
-function ancienexportPDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-  const content = document.getElementById("resultat");
-  if (!content.innerText.trim()) {
-    alert("Veuillez d'abord calculer.");
-    return;
-  }
-  let y = 10;
-  doc.text("Résultat du simulateur", 10, y);
-  y += 10;
-  content.innerText.split("\n").forEach(line => {
-    doc.text(line, 10, y);
-    y += 7;
-  });
-  doc.save("simulateur_adn.pdf");
-}
 function exportPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  const content = document.getElementById("resultat");
-  if (!content.innerText.trim()) {
-    alert("Veuillez d'abord effectuer un calcul.");
-    return;
-  }
-
-  // Chemin vers le logo
   const logo = new Image();
-  logo.src = "assets/logo.png"; // ← chemin ajusté
+  logo.src = "assets/logo_adn.png";
 
   logo.onload = () => {
-    doc.addImage(logo, "PNG", 10, 10, 40, 15); // x, y, largeur, hauteur
+    doc.addImage(logo, "PNG", 10, 10, 40, 15);
 
-    doc.setFontSize(18);
-    doc.text("Simulation Malus & Carte Grise", 60, 20);
+    doc.setFontSize(16);
+    doc.text("Simulation Malus CO₂, Taxe au Poids & Carte Grise", 60, 20);
 
-    doc.setFontSize(11);
-    doc.setTextColor(100);
-    doc.text("Date : " + new Date().toLocaleDateString(), 200, 30, { align: "right" });
+    doc.setFontSize(10);
+    doc.text("Date d'export : " + new Date().toLocaleDateString(), 200, 27, { align: "right" });
 
-    doc.setDrawColor(200);
-    doc.line(10, 28, 200, 28);
+    doc.line(10, 30, 200, 30);
 
-    // Contenu des résultats
+    // Récupérer les données affichées dans les <p> du résultat
+    const resultats = document.querySelectorAll("#resultat p");
     let y = 40;
-    const lignes = content.innerText.split("\n");
-    doc.setFontSize(12);
-    doc.setTextColor(0);
 
-    lignes.forEach(line => {
+    resultats.forEach(p => {
+      const text = p.innerText.replace(/\s+→\s+/g, " → ");
+      doc.setFontSize(12);
+      doc.setTextColor(30);
+      doc.text(text, 10, y);
+      y += 8;
+
       if (y > 270) {
         doc.addPage();
         y = 20;
       }
-      doc.text(line, 10, y);
-      y += 8;
     });
 
     doc.save("simulation_adn.pdf");
   };
 }
+
