@@ -35,7 +35,7 @@ function getMalusPoids(dateMec, poids, type, autonomie) {
   const year = dateMec.getFullYear();
   const mecTimestamp = dateMec.getTime();
   const debutPoids = new Date("2022-01-01").getTime();
-  const seuilMars2022 = new Date("2022-03-01").getTime();
+  const seuilMars2022 = new Date("2022-01-01").getTime();
 
   if (mecTimestamp < debutPoids) return 0;
   if (year === 2022 && mecTimestamp < seuilMars2022) return 0;
