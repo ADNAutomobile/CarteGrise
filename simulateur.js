@@ -139,7 +139,7 @@ function exportPDF() {
   const doc = new jsPDF();
 
   const logo = new Image();
-  logo.src = "assets/logo_adn.png";
+  logo.src = "assets/logo.png";
 
   logo.onload = () => {
     doc.addImage(logo, "PNG", 10, 10, 40, 15);
