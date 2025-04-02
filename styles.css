@@ -52,3 +52,23 @@ button:hover {
   margin-left: auto;
   margin-right: auto;
 }
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: orange;
+  color: black;
+  border: none;
+}
+
+.buttons button:hover {
+  background-color: #ffae00;
+}
