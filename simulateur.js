@@ -170,6 +170,12 @@ function exportPDF() {
 
     // 📝 DONNÉES DE SAISIE
     const dateMec = document.getElementById("dateMec").value;
+    // Formate la date de MEC en jj/mm/aaaa
+    let formattedMec = "-";
+    if (dateMec) {
+      const [yyyy, mm, dd] = dateMec.split("-");
+      formattedMec = `${dd}/${mm}/${yyyy}`;
+    }
     const co2 = document.getElementById("co2").value;
     const poids = document.getElementById("poids").value;
     //const departement = document.getElementById("departement").value;
@@ -180,7 +186,7 @@ function exportPDF() {
     const autonomie = document.getElementById("autonomieElec").value || "-";
 
     const infos = [
-      `Date de 1ère mise en circulation : ${dateMec}`,
+      `Date de 1ère mise en circulation : ${formattedMec}`,
       `Émissions de Co2 : ${co2} g/km`,
       `Poids du véhicule : ${poids} kg`,
       `Département : ${departement}`,
