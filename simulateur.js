@@ -80,7 +80,7 @@ function calculerMoisDepuis(dateMec) {
 }
 
 function getDecote(mois) {
-  if (mois = 0) return 0;
+  if (mois < 1) return 0;
   if (mois <= 3) return 3;
   if (mois <= 6) return 6;
   if (mois <= 9) return 9;
