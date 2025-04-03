@@ -139,63 +139,7 @@ function calculer() {
   `;
 }
 
-function ancienexportPDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
 
-  const content = document.getElementById("resultat");
-  if (!content || !content.innerText.trim()) {
-    alert("Veuillez d'abord effectuer un calcul.");
-    return;
-  }
-
-  const logo = new Image();
-  logo.src = "assets/logo.png";
-
-  logo.onload = () => {
-    doc.addImage(logo, "PNG", 10, 10, 40, 15);
-    doc.setFont("helvetica", "normal");
-
-    doc.setFontSize(16);
-    doc.setTextColor(0);
-    doc.text("Simulation Malus, Taxe Poids & Carte Grise", 60, 20);
-
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.text("Exporté le : " + new Date().toLocaleDateString(), 200, 28, { align: "right" });
-
-    doc.setDrawColor(150);
-    doc.line(10, 30, 200, 30);
-
-    // Récupère les lignes de texte et les nettoie
-    let y = 40;
-    const lignes = Array.from(content.querySelectorAll("p")).map(p =>
-      p.innerText
-        .replace(/\u202F/g, " ")   // espace insécable fine ( )
-        .replace(/\u00A0/g, " ")   // espace insécable classique
-        .replace(/→/g, "->")       // flèche typographique
-        .trim()
-    );
-
-    doc.setFontSize(12);
-    doc.setTextColor(0);
-
-    lignes.forEach(line => {
-      doc.text(line, 10, y);
-      y += 8;
-      if (y > 280) {
-        doc.addPage();
-        y = 20;
-      }
-    });
-
-    doc.save("simulation_adn.pdf");
-  };
-
-  if (logo.complete) {
-    logo.onload();
-  }
-}
 function exportPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -228,7 +172,9 @@ function exportPDF() {
     const dateMec = document.getElementById("dateMec").value;
     const co2 = document.getElementById("co2").value;
     const poids = document.getElementById("poids").value;
-    const departement = document.getElementById("departement").value;
+    //const departement = document.getElementById("departement").value;
+    const departementSelect = document.getElementById("departement");
+    const departement = departementSelect.options[departementSelect.selectedIndex].text;
     const puissance = document.getElementById("puissanceFiscale").value;
     const type = document.getElementById("typeVehicule").value;
     const autonomie = document.getElementById("autonomieElec").value || "-";
