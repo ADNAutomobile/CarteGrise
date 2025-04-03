@@ -127,7 +127,7 @@ function calculer() {
   document.getElementById("resultat").innerHTML = `
     <div class="card card-body">
       <p><strong>Année barème :</strong> ${annee}</p>
-      <p><strong>Vétusté :</strong> ${mois} mois -> ${decote}% abattement CO₂</p>
+      <p><strong>Vétusté :</strong> ${mois} mois -> ${decote}% abattement Co2</p>
       <p><strong>Malus :</strong> ${malusFinal.toFixed(2)} €</p>
       <p><strong>Taxe au poids :</strong> ${poidsTaxe.toFixed(2)} €</p>
       <p><strong>Taxe :</strong> ${taxe.toFixed(2)} €</p>
