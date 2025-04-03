@@ -181,7 +181,7 @@ function exportPDF() {
     doc.setTextColor(0);
 
     lignes.forEach(line => {
-      doc.text(line, 10, y);
+      doc.text(line, 10, y, 0);
       y += 8;
       if (y > 280) {
         doc.addPage();
