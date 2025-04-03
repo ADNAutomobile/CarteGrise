@@ -131,7 +131,7 @@ function calculer() {
       <p><strong>Malus CO₂ :</strong> ${malusFinal.toFixed(2)} €</p>
       <p><strong>Taxe au poids :</strong> ${poidsTaxe.toFixed(2)} €</p>
       <p><strong>Taxe :</strong> ${taxe.toFixed(2)} €</p>
-      <p><strong>Acheminement :</strong> ${acheminemant.toFixed(2)} €</p>
+      <p><strong>Acheminement :</strong> ${acheminement.toFixed(2)} €</p>
       <p><strong>Carte grise :</strong> ${carte.toFixed(2)} €</p>
       <hr />
       <p><strong>Total :</strong> ${total.toFixed(2)} €</p>
