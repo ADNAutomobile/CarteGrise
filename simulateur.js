@@ -118,8 +118,10 @@ function calculer() {
   const malusBrut = (type !== "electrique") ? getMalusCO2(annee, co2) : 0;
   const malusFinal = malusBrut * (1 - decote / 100);
   const poidsTaxe = getMalusPoids(dateMec, poids, type, autonomie);
-  const carte = carteGrise[dep] * cv + 11 + 2.76;
-  const total = malusFinal + poidsTaxe + carte;
+  const carte = carteGrise[dep] * cv;
+  const taxe = 11;
+  const acheminement = 2.76;
+  const total = malusFinal + poidsTaxe + carte + taxe + acheminement;
 
   document.getElementById("info-message").style.display = "none";
   document.getElementById("resultat").innerHTML = `
@@ -128,6 +130,8 @@ function calculer() {
       <p><strong>Ancienneté :</strong> ${mois} mois → ${decote}% abattement CO₂</p>
       <p><strong>Malus CO₂ :</strong> ${malusFinal.toFixed(2)} €</p>
       <p><strong>Taxe au poids :</strong> ${poidsTaxe.toFixed(2)} €</p>
+      <p><strong>Taxe :</strong> ${taxe.toFixed(2)} €</p>
+      <p><strong>Acheminement :</strong> ${acheminemant.toFixed(2)} €</p>
       <p><strong>Carte grise :</strong> ${carte.toFixed(2)} €</p>
       <hr />
       <p><strong>Total :</strong> ${total.toFixed(2)} €</p>
